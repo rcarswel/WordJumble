@@ -60,10 +60,36 @@
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <LinearLayout
-        android:id="@+id/llvBtns"
+        android:id="@+id/llhGuess"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/tvJumbled"
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+        <TextView
+            android:id="@+id/tvGuess"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/guesstv"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <EditText
+            android:id="@+id/etGuess"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_weight="5"
+            android:inputType="text" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llvBtns"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/llhGuess"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="25dp"
         android:orientation="vertical"
@@ -81,6 +107,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:background="@drawable/softbtn"
+                android:onClick="click_Guess"
                 android:text="@string/guess"
                 android:textColor="#ffffff" />
 
@@ -91,6 +118,7 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginStart="5dp"
                 android:background="@drawable/softbtn"
+                android:onClick="click_Change"
                 android:text="@string/change"
                 android:textColor="#ffffff" />
 
@@ -109,6 +137,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:background="@drawable/softbtn"
+                android:onClick="click_Quit"
                 android:text="@string/quit"
                 android:textColor="#ffffff" />
 
@@ -119,6 +148,7 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginStart="5dp"
                 android:background="@drawable/softbtn"
+                android:onClick="click_NewWord"
                 android:text="@string/new_word"
                 android:textColor="#ffffff" />
 

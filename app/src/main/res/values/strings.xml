@@ -6,8 +6,10 @@
     <string name="status">Guess/Play Again</string>
     <string name="jumbled">Jumbled Word</string>
     <string name="size">Size:</string>
-    <string name="guess">Guess</string>
+    <string name="guess">Guess!</string>
     <string name="change">Change</string>
     <string name="quit">Quit</string>
     <string name="new_word">New</string>
+    <string name="guesstv">Guess:</string>
+    <string name="play_again">Play Again?</string>
 </resources>

@@ -22,6 +22,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="200dp"
         android:background="@drawable/softbtn"
+        android:onClick="click_Start"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:text="@string/start"
