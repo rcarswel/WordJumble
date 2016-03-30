@@ -26,7 +26,7 @@ public class WordJumbleGameActivity extends AppCompatActivity {
 
         //Activates Display
         wordJumble = new WordJumble();
-        tvStatus = (TextView) findViewById(R.id.tvStatus);
+        //tvStatus = (TextView) findViewById(R.id.tvStatus);
         etSize = (EditText) findViewById(R.id.etSize);
         tvJumbled = (TextView) findViewById(R.id.tvJumbled);
         etGuess = (EditText) findViewById(R.id.etGuess);
@@ -120,7 +120,7 @@ public class WordJumbleGameActivity extends AppCompatActivity {
      * Loads content of view
      */
     private void newContent() {
-        tvStatus.setText(R.string.guess);
+        //tvStatus.setText(R.string.guess);
         etSize.setText(String.valueOf(wordJumble.getWordLength()));
         tvJumbled.setText(wordJumble.scramble());
         etGuess.setText("");
