@@ -33,7 +33,7 @@ public class WordJumbleGameActivity extends AppCompatActivity {
         etGuess = (EditText) findViewById(R.id.etGuess);
 
         //Load initial content
-        this.newContent();
+        //this.newContent();
     }
 
     /**
