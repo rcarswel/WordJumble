@@ -1,11 +1,15 @@
 package edu.westga.cs6242.wordjumble;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,6 +22,7 @@ public class WordJumbleGameActivity extends AppCompatActivity {
     private EditText etSize;
     private TextView tvJumbled;
     private EditText etGuess;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,17 +101,6 @@ public class WordJumbleGameActivity extends AppCompatActivity {
     }
 
     /**
-     * Closes the application
-     *
-     * @param view current view
-     */
-    public void click_Quit(View view) {
-        makeToast("Goodbye!");
-        finish();
-        System.exit(0);
-    }
-
-    /**
      * Resets with new word, word length should be unchanged.
      *
      * @param view current view
@@ -121,6 +115,7 @@ public class WordJumbleGameActivity extends AppCompatActivity {
      */
     private void newContent() {
         //tvStatus.setText(R.string.guess);
+
         etSize.setText(String.valueOf(wordJumble.getWordLength()));
         tvJumbled.setText(wordJumble.scramble());
         etGuess.setText("");
@@ -148,4 +143,39 @@ public class WordJumbleGameActivity extends AppCompatActivity {
         //Simple Toast
         //Toast.makeText(this,message,Toast.LENGTH_SHORT).show();
     }
+
+    /**
+     * Closes the application and returns to the start game page
+     *
+     * @param view current view
+     */
+    public void click_Quit(View view) {
+
+        this.onBackPressed();
+    }
+    /*
+     * method to alert user of game termination and ask if desired
+     * if yes game finishes and returns to splash page
+     * if no request is cancelled and game continues
+     */
+    public void onBackPressed() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(WordJumbleGameActivity.this);
+        builder.setMessage("Do you want to quit?");
+        builder.setCancelable(true);
+        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int id) {
+                finish();
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.cancel();
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
 }
