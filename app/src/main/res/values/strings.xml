@@ -5,12 +5,13 @@
     <string name="start">Start Game</string>
     <string name="status">Guess/Play Again</string>
     <string name="jumbled">Jumbled Word</string>
-    <string name="size">Word Size is:</string>
+    <string name="size">Enter Size 5 or 6:</string>
     <string name="guess">Submit</string>
     <string name="change">Change</string>
     <string name="quit">Quit</string>
-    <string name="new_word">New</string>
+    <string name="new_word">Play Again</string>
     <string name="guesstv">Guess:</string>
     <string name="play_again">Play Again?</string>
     <string name="Hint">Hint</string>
+    <string name="yourGuess">Enter your Guess</string>
 </resources>
