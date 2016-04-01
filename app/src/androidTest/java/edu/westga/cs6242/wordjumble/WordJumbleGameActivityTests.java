@@ -59,9 +59,96 @@ public class WordJumbleGameActivityTests extends ActivityInstrumentationTestCase
         assertEquals("", guessText);
         this.buttonTapSubmit();
 
+    }
+    /*
+    public void testIfWordJumbleEmpty() {
+        WordJumbleGameActivity activity = getActivity();
+        final EditText guess = (EditText) activity.findViewById(R.id.etGuess);
+        final EditText size = (EditText) activity.findViewById(R.id.etSize);
+        final TextView jumble = (TextView) activity.findViewById(R.id.tvJumbled);
+
+        getInstrumentation().runOnMainSync(new Runnable() {
+            @Override
+            public void run() {
+                size.requestFocus();
+            }
+        });
+
+        getInstrumentation().waitForIdleSync();
+        getInstrumentation().sendStringSync("5");
+
+        getInstrumentation().runOnMainSync(new Runnable() {
+            @Override
+            public void run() {
+                guess.requestFocus();
+            }
+        });
+
+        getInstrumentation().waitForIdleSync();
+        getInstrumentation().sendStringSync("");
+
+        getInstrumentation().runOnMainSync(new Runnable() {
+            @Override
+            public void run() {
+                jumble.requestFocus();
+            }
+        });
+
+        getInstrumentation().waitForIdleSync();
+        getInstrumentation().sendStringSync("");
+
+        TextView jWord =
+                (TextView) activity.findViewById(R.id.tvJumbled);
+
+        String jumbleText = jWord.getText().toString();
+        assertEquals("", jumbleText);
+        this.buttonTapSubmit();
+    }*/
+    public void testChangeButtonIfEmptyDefaultsTo5() {
+        WordJumbleGameActivity activity = getActivity();
+        final EditText size = (EditText) activity.findViewById(R.id.etSize);
+
+        getInstrumentation().runOnMainSync(new Runnable() {
+            @Override
+            public void run() {
+                size.requestFocus();
+            }
+        });
+
+        getInstrumentation().waitForIdleSync();
+        getInstrumentation().sendStringSync("0");
+
+        this.buttonTapChangeLetterCount();
+        EditText sizeWord =
+                (EditText) activity.findViewById(R.id.etSize);
+
+        String letters = sizeWord.getText().toString();
+        assertEquals("5", letters);
+
 
     }
+    public void testChangeButtonInvalidNumberDefaultsTo5() {
+        WordJumbleGameActivity activity = getActivity();
+        final EditText size = (EditText) activity.findViewById(R.id.etSize);
 
+        getInstrumentation().runOnMainSync(new Runnable() {
+            @Override
+            public void run() {
+                size.requestFocus();
+            }
+        });
+
+        getInstrumentation().waitForIdleSync();
+        getInstrumentation().sendStringSync("20");
+
+        this.buttonTapChangeLetterCount();
+        EditText sizeWord =
+                (EditText) activity.findViewById(R.id.etSize);
+
+        String letters = sizeWord.getText().toString();
+        assertEquals("5", letters);
+
+    }
     //********************* Private Helpers ************************
 
     private void buttonTapSubmit() {
@@ -85,11 +172,5 @@ public class WordJumbleGameActivityTests extends ActivityInstrumentationTestCase
                 (Button) activity.findViewById(R.id.btnNewWord);
         TouchUtils.clickView(this, playButton);
     }
-    private void buttonTapQuitGame() {
-        WordJumbleGameActivity activity = getActivity();
 
-        Button quitButton =
-                (Button) activity.findViewById(R.id.btnQuit);
-        TouchUtils.clickView(this, quitButton);
-    }
 }
