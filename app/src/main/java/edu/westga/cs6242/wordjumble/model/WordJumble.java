@@ -1,5 +1,10 @@
 package edu.westga.cs6242.wordjumble.model;
 
+import android.content.Context;
+import android.content.res.AssetManager;
+
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -13,15 +18,19 @@ public class WordJumble {
     private int length;
     private Random random;
     private String original;
+    private Context context;
+    private String wordFile;
 
     /**
      * Populate ArrayList of words at construction
      * Sets default size to 5
      */
-    public WordJumble() {
+    public WordJumble(Context context) {
+        this.context = context;
         this.words = getWords();
         setWordLength(DEFAULTED);
         this.random = new Random();
+        this.wordFile = "words.txt";
     }
 
     /********** Setters and Getters **********/
@@ -51,9 +60,48 @@ public class WordJumble {
     }
 
     /**
+     * Gets words from file and stores as ArrayList,
+     * if file is blank, uses backup (internal hard coding).
+     */
+    private ArrayList<String> getWords() {
+        AssetManager assetManager = this.context.getAssets();
+        InputStream input;
+        ArrayList<String> wordList = new ArrayList<>();
+
+        //Checks for file,
+        // if no file (or blank), use backup
+        try {
+            //Looks up file
+            input = assetManager.open(this.wordFile);
+            int count = input.available();
+            byte[] buffer = new byte[count];
+            input.read(buffer);
+            input.close();
+
+            //Converts Bytes to String
+            String fileText = new String(buffer);
+            String[] fileWords = fileText.split(",");
+
+            //Creates a ArrayList from file
+            for (String word : fileWords) {
+                wordList.add(word);
+            }
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+
+        //Checks size, if 0 uses backup
+        if (wordList.isEmpty()) {
+            wordList = this.getWordsBackUp();
+        }
+
+        return wordList;
+    }
+
+    /**
      * @return All words Array list
      */
-    public ArrayList<String> getWords() {
+    private ArrayList<String> getWordsBackUp() {
         //Create ArrayList to load
         ArrayList<String> wordList = new ArrayList<>();
 
