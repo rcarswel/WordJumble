@@ -13,21 +13,10 @@
     tools:context="edu.westga.cs6242.wordjumble.WordJumbleGameActivity"
     tools:showIn="@layout/activity_word_jumble_game">
 
-    <TextView
-        android:id="@+id/tvStatus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"
-        android:text="@string/status"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
     <LinearLayout
         android:id="@+id/llhSize"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tvStatus"
         android:layout_centerHorizontal="true"
         android:orientation="horizontal"
         android:weightSum="1">
@@ -37,7 +26,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/size"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:paddingTop="85dp"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#ffffff"
+            android:textSize="22dp" />
 
         <EditText
             android:id="@+id/etSize"
@@ -45,8 +37,10 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginStart="5dp"
-            android:layout_weight="5"
-            android:inputType="number" />
+            android:layout_weight="5.59"
+            android:inputType="number"
+            android:textColor="#da8935"
+            android:textSize="25dp" />
     </LinearLayout>
 
     <TextView
@@ -54,10 +48,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/llhSize"
+        android:paddingBottom="15dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="5dp"
         android:text="@string/jumbled"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="35dp"
+        android:textColor="#fefefe"
+        android:typeface="serif" />
 
     <LinearLayout
         android:id="@+id/llhGuess"
@@ -68,21 +66,22 @@
         android:orientation="horizontal"
         android:weightSum="1">
 
-        <TextView
-            android:id="@+id/tvGuess"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/guesstv"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <EditText
             android:id="@+id/etGuess"
-            android:layout_width="0dp"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginStart="5dp"
-            android:layout_weight="5"
-            android:inputType="text" />
+            android:layout_weight="2.10"
+            android:paddingTop="10dp"
+            android:textSize="25sp"
+            android:textColor="#d17d06"
+            android:inputType="text"
+            android:singleLine="false"
+            android:lines="2"
+            android:background="#ffffff"
+            android:text="@string/yourGuess" />
     </LinearLayout>
 
     <LinearLayout
@@ -109,7 +108,9 @@
                 android:background="@drawable/softbtn"
                 android:onClick="click_Guess"
                 android:text="@string/guess"
-                android:textColor="#ffffff" />
+
+                android:textColor="#ffffff"
+                android:backgroundTint="#de8b36" />
 
             <Button
                 android:id="@+id/btnChange"
@@ -154,4 +155,16 @@
 
         </LinearLayout>
     </LinearLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Hint"
+        android:id="@+id/btnHint"
+        android:layout_alignTop="@+id/llhSize"
+        android:layout_toRightOf="@+id/llhSize"
+        android:layout_toEndOf="@+id/llhSize"
+        android:textColor="#ffffff"
+        android:backgroundTint="#a4a5a5"
+        android:textSize="12dp" />
 </RelativeLayout>

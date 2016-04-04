@@ -1,5 +1,7 @@
 package edu.westga.cs6242.wordjumble;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
@@ -14,10 +16,10 @@ import edu.westga.cs6242.wordjumble.model.WordJumble;
 
 public class WordJumbleGameActivity extends AppCompatActivity {
     private WordJumble wordJumble;
-    private TextView tvStatus;
     private EditText etSize;
     private TextView tvJumbled;
     private EditText etGuess;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,13 +28,12 @@ public class WordJumbleGameActivity extends AppCompatActivity {
 
         //Activates Display
         wordJumble = new WordJumble();
-        tvStatus = (TextView) findViewById(R.id.tvStatus);
         etSize = (EditText) findViewById(R.id.etSize);
         tvJumbled = (TextView) findViewById(R.id.tvJumbled);
         etGuess = (EditText) findViewById(R.id.etGuess);
 
         //Load initial content
-        this.newContent();
+        //this.newContent();
     }
 
     /**
@@ -47,14 +48,13 @@ public class WordJumbleGameActivity extends AppCompatActivity {
         if (tvJumbled.getText().length() == 0) {
             makeToast("Your guess is blank!");
         } else {
-            guess = etSize.getText().toString().toLowerCase();
+            guess = etGuess.getText().toString().toLowerCase();
         }
 
         if (wordJumble.compare(guess)) {
-            tvStatus.setText(R.string.play_again);
-            makeToast("That is correct!");
+            makeToast("Correct!");
         } else {
-            makeToast("That is not correct!");
+            makeToast("Wrong!");
         }
     }
 
@@ -68,12 +68,12 @@ public class WordJumbleGameActivity extends AppCompatActivity {
         int newSize = oldSize;
 
         //Checks that size is not blank, then get user input
+
         if (etSize.getText().length() == 0) {
             makeToast("Size is blank!");
         } else {
             newSize = Integer.parseInt(etSize.getText().toString());
         }
-
         //Check if there is a real change, then sets the new length
         if (newSize == oldSize) {
             makeToast("Size is already " + oldSize + "!");
@@ -82,12 +82,12 @@ public class WordJumbleGameActivity extends AppCompatActivity {
             newSize = wordJumble.getWordLength();
         }
 
-        //Checks if any words match the new length, then gets ne content
+        //Checks if any words match the new length, then gets new content
         if (newSize == oldSize) {
             int size = Integer.parseInt(etSize.getText().toString());
-            makeToast("There a no " + size + " letter words!");
+            makeToast("There are no " + size + " letter words!");
         } else {
-            makeToast("Size changed! Here is a new word!");
+            makeToast("Size changed!");
             this.newContent();
         }
 
@@ -96,36 +96,55 @@ public class WordJumbleGameActivity extends AppCompatActivity {
     }
 
     /**
-     * Closes the application
-     *
-     * @param view current view
-     */
-    public void click_Quit(View view) {
-        makeToast("Goodbye!");
-        finish();
-        System.exit(0);
-    }
-
-    /**
-     * Resets with new word, word length should be unchanged.
+     * Clear old word and Resets with new word.
      *
      * @param view current view
      */
     public void click_NewWord(View view) {
-        makeToast("Here is a new word!");
+        tvJumbled.clearFocus();
         this.newContent();
     }
 
     /**
-     * Loads content of view
+     * Closes the application and returns to the start game page
+     *
+     * @param view current view
      */
+    public void click_Quit(View view) {
+        this.onBackPressed();
+    }
+    /*
+     * method to alert user of game termination and ask if desired
+     * if yes game finishes and returns to splash page
+     * if no request is cancelled and game continues
+     */
+    public void onBackPressed() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(WordJumbleGameActivity.this);
+        builder.setMessage("Do you want to quit?");
+        builder.setCancelable(true);
+        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int id) {
+                finish();
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.cancel();
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+    //********************Private Helper Methods*************************************
+
     private void newContent() {
-        tvStatus.setText(R.string.guess);
         etSize.setText(String.valueOf(wordJumble.getWordLength()));
         tvJumbled.setText(wordJumble.scramble());
         etGuess.setText("");
     }
-
     /**
      * Making Toast
      */
@@ -135,7 +154,7 @@ public class WordJumbleGameActivity extends AppCompatActivity {
         View layout = inflater.inflate(R.layout.custom_toast, (ViewGroup) findViewById(R.id.custom_toast_layout_id));
 
         //set message
-        TextView text = (TextView) layout.findViewById(R.id.text);
+        TextView text = (TextView) layout.findViewById(R.id.tvToast);
         text.setText(message);
 
         //create toast
@@ -144,8 +163,8 @@ public class WordJumbleGameActivity extends AppCompatActivity {
         toast.setGravity(Gravity.CENTER, 0, 0); //Sets display location
         toast.setView(layout);
         toast.show();
-
-        //Simple Toast
         //Toast.makeText(this,message,Toast.LENGTH_SHORT).show();
+
     }
+
 }
