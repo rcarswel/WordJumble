@@ -3,7 +3,6 @@ package edu.westga.cs6242.wordjumble.model;
 import android.content.Context;
 import android.content.res.AssetManager;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Random;
@@ -28,8 +27,8 @@ public class WordJumble {
     public WordJumble(Context context) {
         this.context = context;
         this.wordFile = "words.txt";
-        setWordLength(DEFAULTED);
         this.words = getWords();
+        setWordLength(DEFAULTED);
         this.random = new Random();
     }
 
@@ -80,18 +79,18 @@ public class WordJumble {
 
             //Converts Bytes to String
             String fileText = new String(buffer);
-            String[] fileWords = fileText.split(",");
+            String[] fileWords = fileText.split("\\r?\\n");
 
             //Creates a ArrayList from file
             for (String word : fileWords) {
                 wordList.add(word);
             }
-        } catch (IOException ioe) {
+        } catch (Exception ioe) {
             ioe.printStackTrace();
         }
 
         //Checks size, if 0 uses backup
-        if (wordList.isEmpty()) {
+        if (wordList.size() == 0) {
             wordList = this.getWordsBackUp();
         }
 
