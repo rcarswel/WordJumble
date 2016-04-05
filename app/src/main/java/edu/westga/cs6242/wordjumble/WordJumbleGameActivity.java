@@ -27,7 +27,7 @@ public class WordJumbleGameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_word_jumble_game);
 
         //Activates Display
-        wordJumble = new WordJumble();
+        wordJumble = new WordJumble(this);
         etSize = (EditText) findViewById(R.id.etSize);
         tvJumbled = (TextView) findViewById(R.id.tvJumbled);
         etGuess = (EditText) findViewById(R.id.etGuess);

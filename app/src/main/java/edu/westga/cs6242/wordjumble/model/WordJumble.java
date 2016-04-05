@@ -27,10 +27,10 @@ public class WordJumble {
      */
     public WordJumble(Context context) {
         this.context = context;
-        this.words = getWords();
-        setWordLength(DEFAULTED);
-        this.random = new Random();
         this.wordFile = "words.txt";
+        setWordLength(DEFAULTED);
+        this.words = getWords();
+        this.random = new Random();
     }
 
     /********** Setters and Getters **********/
