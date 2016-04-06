@@ -28,4 +28,5 @@
         android:text="@string/start"
         android:textColor="#ffffff"
         android:textSize="25sp" />
+
 </RelativeLayout>

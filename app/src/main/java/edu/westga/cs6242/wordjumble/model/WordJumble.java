@@ -56,6 +56,9 @@ public class WordJumble {
             if (word.length() == length) {
                 check = length;
                 break;
+
+            } else if(check > word.length()) {
+                check = word.length();
             }
         }
         this.length = check;
@@ -75,21 +78,6 @@ public class WordJumble {
         try {
             //Looks up file
             Scanner input = new Scanner(assetManager.open(this.wordFile));
-            /*int count = input.available();
-            byte[] buffer = new byte[count];
-            input.read(buffer);
-            input.close();
-
-            //Converts Bytes to String
-            String fileText = new String(buffer);
-            // in windows it is \r\n and in linux/mac it is \n
-            String[] fileWords = fileText.split("\\r?\\n");
-
-            //Creates a ArrayList from file
-            for (String word : fileWords) {
-                wordList.add(word);
-            }*/
-
             while(input.hasNext()) {
                 String line = input.nextLine();
                 // Split the string at comma. So, first is word and second is hint

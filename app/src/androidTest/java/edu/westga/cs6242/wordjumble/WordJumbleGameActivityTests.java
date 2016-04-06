@@ -21,29 +21,22 @@ public class WordJumbleGameActivityTests extends ActivityInstrumentationTestCase
         final EditText size = (EditText) activity.findViewById(R.id.etSize);
         final TextView jumble = (TextView) activity.findViewById(R.id.tvJumbled);
 
-        // we have not anything with app yet.
-        assertEquals(0, size.getText().toString().length());
-        assertEquals(0, jumble.getText().toString().length());
 
         // tap hint button.
-
+        this.buttonTapHint();
         assertEquals(0, size.getText().toString().length());
         assertEquals(0, jumble.getText().toString().length());
 
         // change button
-
+        this.buttonTapChangeLetterCount();
         assertEquals(0, size.getText().toString().length());
         assertEquals(0, jumble.getText().toString().length());
 
         // submit button
-
+        this.buttonTapSubmit();
         assertEquals(0, size.getText().toString().length());
         assertEquals(0, jumble.getText().toString().length());
 
-        // quit button
-
-        assertEquals(0, size.getText().toString().length());
-        assertEquals(0, jumble.getText().toString().length());
     }
 
     public void testUserInputMissing() {
@@ -134,7 +127,7 @@ public class WordJumbleGameActivityTests extends ActivityInstrumentationTestCase
         assertEquals("", jumbleText);
         this.buttonTapSubmit();
     }
-    public void testChangeButtonIf0Defaults6() {
+    public void testChangeButtonIf0Defaults5() {
         WordJumbleGameActivity activity = getActivity();
         final EditText size = (EditText) activity.findViewById(R.id.etSize);
 
@@ -153,7 +146,7 @@ public class WordJumbleGameActivityTests extends ActivityInstrumentationTestCase
                 (EditText) activity.findViewById(R.id.etSize);
 
         String letters = sizeWord.getText().toString();
-        assertEquals("6", letters);
+        assertEquals("5", letters);
 
 
     }
@@ -201,6 +194,15 @@ public class WordJumbleGameActivityTests extends ActivityInstrumentationTestCase
         Button playButton =
                 (Button) activity.findViewById(R.id.btnNewWord);
         TouchUtils.clickView(this, playButton);
+    }
+    private void buttonTapHint() {
+        WordJumbleGameActivity activity = getActivity();
+
+        Button hintButton =
+                (Button) activity.findViewById(R.id.btnHint);
+        TouchUtils.clickView(this, hintButton);
+
+
     }
 
 }

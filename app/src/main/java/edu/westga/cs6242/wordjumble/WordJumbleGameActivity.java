@@ -115,7 +115,7 @@ public class WordJumbleGameActivity extends AppCompatActivity {
     }
 
     public void click_Hint(View view) {
-        makeToast("It is " + wordJumble.getHint());
+        makeToast("It is" + wordJumble.getHint());
 
     }
     /**
@@ -176,7 +176,7 @@ public class WordJumbleGameActivity extends AppCompatActivity {
         toast.setGravity(Gravity.CENTER, 0, 0); //Sets display location
         toast.setView(layout);
         toast.show();
-        //Toast.makeText(this,message,Toast.LENGTH_SHORT).show();
+
 
     }
 
