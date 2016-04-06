@@ -15,6 +15,36 @@ public class WordJumbleGameActivityTests extends ActivityInstrumentationTestCase
         WordJumbleGameActivity activity = getActivity();
         assertNotNull(activity);
     }
+    public void testInitialState() {
+        WordJumbleGameActivity activity = getActivity();
+        final EditText guess = (EditText) activity.findViewById(R.id.etGuess);
+        final EditText size = (EditText) activity.findViewById(R.id.etSize);
+        final TextView jumble = (TextView) activity.findViewById(R.id.tvJumbled);
+
+        // we have not anything with app yet.
+        assertEquals(0, size.getText().toString().length());
+        assertEquals(0, jumble.getText().toString().length());
+
+        // tap hint button.
+
+        assertEquals(0, size.getText().toString().length());
+        assertEquals(0, jumble.getText().toString().length());
+
+        // change button
+
+        assertEquals(0, size.getText().toString().length());
+        assertEquals(0, jumble.getText().toString().length());
+
+        // submit button
+
+        assertEquals(0, size.getText().toString().length());
+        assertEquals(0, jumble.getText().toString().length());
+
+        // quit button
+
+        assertEquals(0, size.getText().toString().length());
+        assertEquals(0, jumble.getText().toString().length());
+    }
 
     public void testUserInputMissing() {
         WordJumbleGameActivity activity = getActivity();
@@ -60,7 +90,7 @@ public class WordJumbleGameActivityTests extends ActivityInstrumentationTestCase
         this.buttonTapSubmit();
 
     }
-    /*
+
     public void testIfWordJumbleEmpty() {
         WordJumbleGameActivity activity = getActivity();
         final EditText guess = (EditText) activity.findViewById(R.id.etGuess);
@@ -103,8 +133,8 @@ public class WordJumbleGameActivityTests extends ActivityInstrumentationTestCase
         String jumbleText = jWord.getText().toString();
         assertEquals("", jumbleText);
         this.buttonTapSubmit();
-    }*/
-    public void testChangeButtonIfEmptyDefaultsTo5() {
+    }
+    public void testChangeButtonIf0Defaults6() {
         WordJumbleGameActivity activity = getActivity();
         final EditText size = (EditText) activity.findViewById(R.id.etSize);
 
@@ -123,7 +153,7 @@ public class WordJumbleGameActivityTests extends ActivityInstrumentationTestCase
                 (EditText) activity.findViewById(R.id.etSize);
 
         String letters = sizeWord.getText().toString();
-        assertEquals("5", letters);
+        assertEquals("6", letters);
 
 
     }

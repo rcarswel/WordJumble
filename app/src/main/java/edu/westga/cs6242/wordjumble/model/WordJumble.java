@@ -6,6 +6,7 @@ import android.content.res.AssetManager;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Scanner;
 
 /**
  * Created by Miko on 3/23/2016.
@@ -14,9 +15,10 @@ import java.util.Random;
 public class WordJumble {
     private static final int DEFAULTED = 5; //Default Length
     private ArrayList<String> words;
+    private ArrayList<String> hints;
     private int length;
     private Random random;
-    private String original;
+    private String original, originalHint;
     private Context context;
     private String wordFile;
 
@@ -27,7 +29,7 @@ public class WordJumble {
     public WordJumble(Context context) {
         this.context = context;
         this.wordFile = "words.txt";
-        this.words = getWords();
+        getWords();
         setWordLength(DEFAULTED);
         this.random = new Random();
     }
@@ -53,6 +55,7 @@ public class WordJumble {
         for (String word : this.words) {
             if (word.length() == length) {
                 check = length;
+                break;
             }
         }
         this.length = check;
@@ -62,62 +65,75 @@ public class WordJumble {
      * Gets words from file and stores as ArrayList,
      * if file is blank, uses backup (internal hard coding).
      */
-    private ArrayList<String> getWords() {
+    private void getWords() {
         AssetManager assetManager = this.context.getAssets();
-        InputStream input;
-        ArrayList<String> wordList = new ArrayList<>();
+        words = new ArrayList<>();
+        hints = new ArrayList<>();
 
         //Checks for file,
         // if no file (or blank), use backup
         try {
             //Looks up file
-            input = assetManager.open(this.wordFile);
-            int count = input.available();
+            Scanner input = new Scanner(assetManager.open(this.wordFile));
+            /*int count = input.available();
             byte[] buffer = new byte[count];
             input.read(buffer);
             input.close();
 
             //Converts Bytes to String
             String fileText = new String(buffer);
+            // in windows it is \r\n and in linux/mac it is \n
             String[] fileWords = fileText.split("\\r?\\n");
 
             //Creates a ArrayList from file
             for (String word : fileWords) {
                 wordList.add(word);
+            }*/
+
+            while(input.hasNext()) {
+                String line = input.nextLine();
+                // Split the string at comma. So, first is word and second is hint
+                String[] data = line.split(",");
+                words.add(data[0]);
+                hints.add(data[1]);
             }
         } catch (Exception ioe) {
             ioe.printStackTrace();
         }
 
         //Checks size, if 0 uses backup
-        if (wordList.size() == 0) {
-            wordList = this.getWordsBackUp();
+        if (words.size() == 0) {
+            this.getWordsBackUp();
         }
-
-        return wordList;
     }
 
     /**
      * @return All words Array list
      */
-    private ArrayList<String> getWordsBackUp() {
+    private void getWordsBackUp() {
         //Create ArrayList to load
-        ArrayList<String> wordList = new ArrayList<>();
 
         //Load ArrayList with words [5 each of 5 or 6 letters)
-        wordList.add("apple");
-        wordList.add("banana");
-        wordList.add("carrot");
-        wordList.add("grape");
-        wordList.add("lemon");
-        wordList.add("mango");
-        wordList.add("orange");
-        wordList.add("peach");
-        wordList.add("raisin");
-        wordList.add("tomato");
-
-        //Return ArrayList
-        return wordList;
+        words.add("apple");
+        hints.add("fruit");
+        words.add("banana");
+        hints.add("fruit");
+        words.add("carrot");
+        hints.add("fruit");
+        words.add("grape");
+        hints.add("fruit");
+        words.add("lemon");
+        hints.add("fruit");
+        words.add("mango");
+        hints.add("fruit");
+        words.add("orange");
+        hints.add("fruit");
+        words.add("peach");
+        hints.add("fruit");
+        words.add("raisin");
+        hints.add("fruit");
+        words.add("tomato");
+        hints.add("fruit");
     }
 
     /*********** Methods **********/
@@ -161,6 +177,10 @@ public class WordJumble {
         return original.equals(lcWord);
     }
 
+    public String getHint() {
+        return originalHint;
+    }
+
     /**
      * Gets a random word from the array list that is the correct length,
      * sets as the original word to scramble
@@ -175,11 +195,13 @@ public class WordJumble {
         int size = this.words.size();
         int index = random.nextInt(size);
         original = words.get(index);
+        originalHint = hints.get(index);
 
         //Check for length
         while (original.length() != this.getWordLength()) {
             index = random.nextInt(size);
             original = words.get(index);
+            originalHint = hints.get(index);
         }
 
         //Return word of correct length

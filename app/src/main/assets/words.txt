@@ -1,22 +1,23 @@
-absorb
-adore
-baffle
-bakery
-cactus
-chest
-dancer
-deputy
-diaper
-faucet
-gallop
-happy
-hello
-horse
-humble
-ideas
-ivory
-knife
-manor
-quick
-seize
-zombie
+absorb, to pick up
+adore, to really like
+baffle, to be confused
+bakery, sweets
+cactus, a plant
+chest, a body part
+dancer, an physical action
+deputy, a law inforcer
+diaper, a item for babies
+faucet, a water outlet
+gallop, an animals action
+happy, a state of being
+hello, a greeting
+horse, an animal
+humble, a way of being
+ideas, a thought of something
+ivory, a color
+manor, a house
+quick, a fast movement
+seize, a way of taking something
+zombie, a fictional dead creature
+
+

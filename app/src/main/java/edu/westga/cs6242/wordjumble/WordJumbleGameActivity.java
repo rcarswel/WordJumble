@@ -33,7 +33,7 @@ public class WordJumbleGameActivity extends AppCompatActivity {
         etGuess = (EditText) findViewById(R.id.etGuess);
 
         //Load initial content
-        //this.newContent();
+
     }
 
     /**
@@ -45,12 +45,20 @@ public class WordJumbleGameActivity extends AppCompatActivity {
         String guess = "";
 
         //Checks that guess is not blank, then get user input
+        if (etSize.getText().length() == 0) {
+            makeToast("Size is blank!");
+            return;
+        }
         if (tvJumbled.getText().length() == 0) {
-            makeToast("Your guess is blank!");
+            makeToast("Please press play to begin!");
+            return;
         } else {
             guess = etGuess.getText().toString().toLowerCase();
+            if(guess.length() == 0) {
+                makeToast("Your guess is blank!");
+                return;
+            }
         }
-
         if (wordJumble.compare(guess)) {
             makeToast("Correct!");
         } else {
@@ -71,6 +79,7 @@ public class WordJumbleGameActivity extends AppCompatActivity {
 
         if (etSize.getText().length() == 0) {
             makeToast("Size is blank!");
+            return;
         } else {
             newSize = Integer.parseInt(etSize.getText().toString());
         }
@@ -105,6 +114,10 @@ public class WordJumbleGameActivity extends AppCompatActivity {
         this.newContent();
     }
 
+    public void click_Hint(View view) {
+        makeToast("It is " + wordJumble.getHint());
+
+    }
     /**
      * Closes the application and returns to the start game page
      *
