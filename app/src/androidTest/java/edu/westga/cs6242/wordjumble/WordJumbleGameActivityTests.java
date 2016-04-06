@@ -84,7 +84,7 @@ public class WordJumbleGameActivityTests extends ActivityInstrumentationTestCase
 
     }
 
-    public void testIfWordJumbleEmpty() {
+    public void testSubmitIfWordJumbleEmpty() {
         WordJumbleGameActivity activity = getActivity();
         final EditText guess = (EditText) activity.findViewById(R.id.etGuess);
         final EditText size = (EditText) activity.findViewById(R.id.etSize);
@@ -119,13 +119,13 @@ public class WordJumbleGameActivityTests extends ActivityInstrumentationTestCase
 
         getInstrumentation().waitForIdleSync();
         getInstrumentation().sendStringSync("");
-
+        this.buttonTapSubmit();
         TextView jWord =
                 (TextView) activity.findViewById(R.id.tvJumbled);
 
         String jumbleText = jWord.getText().toString();
         assertEquals("", jumbleText);
-        this.buttonTapSubmit();
+
     }
     public void testChangeButtonIf0Defaults5() {
         WordJumbleGameActivity activity = getActivity();
@@ -170,10 +170,69 @@ public class WordJumbleGameActivityTests extends ActivityInstrumentationTestCase
 
         String letters = sizeWord.getText().toString();
         assertEquals("5", letters);
+        //assertEquals("5", letters);
+
+    }
+    public void testPlayButtonIfWordSizeIsEmptyDefaultTo5() {
+        WordJumbleGameActivity activity = getActivity();
+        final EditText size = (EditText) activity.findViewById(R.id.etSize);
+
+        getInstrumentation().runOnMainSync(new Runnable() {
+            @Override
+            public void run() {
+                size.requestFocus();
+            }
+        });
+
+        getInstrumentation().waitForIdleSync();
+        getInstrumentation().sendStringSync("");
+
+        this.buttonTapPlay();
+        EditText sizeWord =
+                (EditText) activity.findViewById(R.id.etSize);
+
+        String letters = sizeWord.getText().toString();
+
+        assertEquals("5", letters);
+
+    }
+    public void testSubmitButtonIfGuessIsEmpty() {
+        WordJumbleGameActivity activity = getActivity();
+        final EditText guess = (EditText) activity.findViewById(R.id.etGuess);
+        final EditText size = (EditText) activity.findViewById(R.id.etSize);
+        this.buttonTapPlay();
+
+        getInstrumentation().runOnMainSync(new Runnable() {
+            @Override
+            public void run() {
+                size.requestFocus();
+            }
+        });
+
+        getInstrumentation().waitForIdleSync();
+        getInstrumentation().sendStringSync("5");
+
+        getInstrumentation().runOnMainSync(new Runnable() {
+            @Override
+            public void run() {
+                guess.requestFocus();
+            }
+        });
+
+        getInstrumentation().waitForIdleSync();
+        getInstrumentation().sendStringSync("");
+
+        this.buttonTapSubmit();
+        EditText guessW =
+                (EditText) activity.findViewById(R.id.etGuess);
+
+        String guessWord = guessW.getText().toString();
+
+        assertEquals("", guessWord);
 
     }
     //********************* Private Helpers ************************
-
+    //buttons for testing
     private void buttonTapSubmit() {
         WordJumbleGameActivity activity = getActivity();
 
