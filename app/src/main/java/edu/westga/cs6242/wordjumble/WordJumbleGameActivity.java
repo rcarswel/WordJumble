@@ -14,12 +14,21 @@ import android.widget.Toast;
 
 import edu.westga.cs6242.wordjumble.model.WordJumble;
 
+/**
+ * Initial Creation 3/16/2016.
+ * Updated by Miko 3/19/2016. Created second activity for game play.
+ * Updated by Robert on 3/29/2016. Added functionality.
+ * Updated by Miko 3/30/2016. Add connections to UI.
+ * Updated by Miko 3/31/2016. Created testing.
+ * Updated by Robert on 4/5/2016. Corrected context issue.
+ * Updated by Miko 4/6/2016. Added hints and issue checks.
+ * Updated by Robert on 4/6/2016. Added comments and notations.
+ */
 public class WordJumbleGameActivity extends AppCompatActivity {
     private WordJumble wordJumble;
     private EditText etSize;
     private TextView tvJumbled;
     private EditText etGuess;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,22 +42,23 @@ public class WordJumbleGameActivity extends AppCompatActivity {
         etGuess = (EditText) findViewById(R.id.etGuess);
 
         //Load initial content
-
+        this.newContent();
     }
 
     /**
      * User's guess
-     *
      * @param view current view
      */
     public void click_Guess(View view) {
-        String guess = "";
+        String guess;
 
         //Checks that guess is not blank, then get user input
         if (etSize.getText().length() == 0) {
             makeToast("Size is blank!");
             return;
         }
+
+        //Checks for new game status
         if (tvJumbled.getText().length() == 0) {
             makeToast("Please press play to begin!");
             return;
@@ -59,6 +69,8 @@ public class WordJumbleGameActivity extends AppCompatActivity {
                 return;
             }
         }
+
+        //Checks user answer
         if (wordJumble.compare(guess)) {
             makeToast("Correct!");
         } else {
@@ -68,36 +80,35 @@ public class WordJumbleGameActivity extends AppCompatActivity {
 
     /**
      * Changes the size, if valid
-     *
      * @param view current view
      */
     public void click_Change(View view) {
         int oldSize = wordJumble.getWordLength();
-        int newSize = oldSize;
+        int newSize;
 
         //Checks that size is not blank, then get user input
-
         if (etSize.getText().length() == 0) {
             makeToast("Size is blank!");
             return;
         } else {
             newSize = Integer.parseInt(etSize.getText().toString());
         }
+
         //Check if there is a real change, then sets the new length
         if (newSize == oldSize) {
             makeToast("Size is already " + oldSize + "!");
         } else {
             wordJumble.setWordLength(newSize);
             newSize = wordJumble.getWordLength();
-        }
 
-        //Checks if any words match the new length, then gets new content
-        if (newSize == oldSize) {
-            int size = Integer.parseInt(etSize.getText().toString());
-            makeToast("There are no " + size + " letter words!");
-        } else {
-            makeToast("Size changed!");
-            this.newContent();
+            //Checks if any words match the new length, then gets new content
+            if (newSize == oldSize) {
+                int size = Integer.parseInt(etSize.getText().toString());
+                makeToast("There are no " + size + " letter words!");
+            } else {
+                makeToast("Size changed!");
+                this.newContent();
+            }
         }
 
         //Restore size to valid data, no change if already valid
@@ -106,7 +117,6 @@ public class WordJumbleGameActivity extends AppCompatActivity {
 
     /**
      * Clear old word and Resets with new word.
-     *
      * @param view current view
      */
     public void click_NewWord(View view) {
@@ -114,13 +124,18 @@ public class WordJumbleGameActivity extends AppCompatActivity {
         this.newContent();
     }
 
+    /**
+     * Provides a hint for the user.
+     *
+     * @param view current view
+     */
     public void click_Hint(View view) {
         makeToast("It is" + wordJumble.getHint());
 
     }
+
     /**
      * Closes the application and returns to the start game page
-     *
      * @param view current view
      */
     public void click_Quit(View view) {
@@ -153,11 +168,15 @@ public class WordJumbleGameActivity extends AppCompatActivity {
 
     //********************Private Helper Methods*************************************
 
+    /**
+     * Loads content
+     */
     private void newContent() {
         etSize.setText(String.valueOf(wordJumble.getWordLength()));
         tvJumbled.setText(wordJumble.scramble());
         etGuess.setText("");
     }
+
     /**
      * Making Toast
      */
@@ -176,8 +195,5 @@ public class WordJumbleGameActivity extends AppCompatActivity {
         toast.setGravity(Gravity.CENTER, 0, 0); //Sets display location
         toast.setView(layout);
         toast.show();
-
-
     }
-
 }

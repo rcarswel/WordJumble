@@ -5,7 +5,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-
+/**
+ * Created by Miko on 3/31/2016.
+ * Updated by Miko on 4/1/2016. Added testing.
+ * Updated by Miko on 4/6/2016. Added testing.
+ * Updated by Robert on 4/6/2016. Changed to match correcting in Model.
+ */
 public class WordJumbleGameActivityTests extends ActivityInstrumentationTestCase2<WordJumbleGameActivity> {
     public WordJumbleGameActivityTests() {
         super(WordJumbleGameActivity.class);
@@ -24,18 +29,18 @@ public class WordJumbleGameActivityTests extends ActivityInstrumentationTestCase
 
         // tap hint button.
         this.buttonTapHint();
-        assertEquals(0, size.getText().toString().length());
-        assertEquals(0, jumble.getText().toString().length());
+        assertEquals("5", size.getText().toString());
+        assertEquals(5, jumble.getText().toString().length());
 
         // change button
         this.buttonTapChangeLetterCount();
-        assertEquals(0, size.getText().toString().length());
-        assertEquals(0, jumble.getText().toString().length());
+        assertEquals("5", size.getText().toString());
+        assertEquals(5, jumble.getText().toString().length());
 
         // submit button
         this.buttonTapSubmit();
-        assertEquals(0, size.getText().toString().length());
-        assertEquals(0, jumble.getText().toString().length());
+        assertEquals("5", size.getText().toString());
+        assertEquals(5, jumble.getText().toString().length());
 
     }
 
@@ -162,7 +167,7 @@ public class WordJumbleGameActivityTests extends ActivityInstrumentationTestCase
                 (TextView) activity.findViewById(R.id.tvJumbled);
 
         String jumbleText = jWord.getText().toString();
-        assertEquals("", jumbleText);
+        assertEquals(5, jumbleText.length());
 
     }
     public void testChangeButtonIf0Defaults5() {

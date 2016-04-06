@@ -3,14 +3,16 @@ package edu.westga.cs6242.wordjumble.model;
 import android.content.Context;
 import android.content.res.AssetManager;
 
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
 /**
  * Created by Miko on 3/23/2016.
- * Updated by Robert on 3/25/2016.
+ * Updated by Robert on 3/25/2016. Testing and updated code where needed.
+ * Updated by Robert on 4/4/2016. Added read file (wasn't working).
+ * Updated by Robert on 4/5/2016. Corrected code for read file.
+ * Updated by Miko on 4/6/16. Added hints and testing.
  */
 public class WordJumble {
     private static final int DEFAULTED = 5; //Default Length
@@ -57,71 +59,29 @@ public class WordJumble {
                 check = length;
                 break;
 
-            } else if(check > word.length()) {
-                check = word.length();
+            } else {
+                check = DEFAULTED;
             }
         }
         this.length = check;
     }
 
     /**
-     * Gets words from file and stores as ArrayList,
-     * if file is blank, uses backup (internal hard coding).
+     * Gets a user hint
+     * @return hint for user
      */
-    private void getWords() {
-        AssetManager assetManager = this.context.getAssets();
-        words = new ArrayList<>();
-        hints = new ArrayList<>();
-
-        //Checks for file,
-        // if no file (or blank), use backup
-        try {
-            //Looks up file
-            Scanner input = new Scanner(assetManager.open(this.wordFile));
-            while(input.hasNext()) {
-                String line = input.nextLine();
-                // Split the string at comma. So, first is word and second is hint
-                String[] data = line.split(",");
-                words.add(data[0]);
-                hints.add(data[1]);
-            }
-        } catch (Exception ioe) {
-            ioe.printStackTrace();
-        }
-
-        //Checks size, if 0 uses backup
-        if (words.size() == 0) {
-            this.getWordsBackUp();
-        }
+    public String getHint() {
+        return originalHint;
     }
 
     /**
-     * @return All words Array list
+     * Gets the correct answer
+     * Only used for testing
+     *
+     * @return correct answer
      */
-    private void getWordsBackUp() {
-        //Create ArrayList to load
-
-        //Load ArrayList with words [5 each of 5 or 6 letters)
-        words.add("apple");
-        hints.add("fruit");
-        words.add("banana");
-        hints.add("fruit");
-        words.add("carrot");
-        hints.add("fruit");
-        words.add("grape");
-        hints.add("fruit");
-        words.add("lemon");
-        hints.add("fruit");
-        words.add("mango");
-        hints.add("fruit");
-        words.add("orange");
-        hints.add("fruit");
-        words.add("peach");
-        hints.add("fruit");
-        words.add("raisin");
-        hints.add("fruit");
-        words.add("tomato");
-        hints.add("fruit");
+    public String getAnswer() {
+        return original;
     }
 
     /*********** Methods **********/
@@ -165,10 +125,74 @@ public class WordJumble {
         return original.equals(lcWord);
     }
 
-    public String getHint() {
-        return originalHint;
+    /*********** Private Methods **********/
+
+    /**
+     * Gets words from file and stores as ArrayList,
+     * if file is blank, uses backup (internal hard coding).
+     */
+    private void getWords() {
+        words = new ArrayList<>();
+        hints = new ArrayList<>();
+
+        //Checks for null testing context
+        if (this.context == null) {
+            this.getWordsBackUp();
+            return;
+        }
+
+        //Checks for file,
+        // if no file (or blank), use backup
+        try {
+            AssetManager assetManager = this.context.getAssets();
+
+            //Looks up file
+            Scanner input = new Scanner(assetManager.open(this.wordFile));
+            while(input.hasNext()) {
+                String line = input.nextLine();
+                // Split the string at comma. So, first is word and second is hint
+                String[] data = line.split(",");
+                words.add(data[0]);
+                hints.add(data[1]);
+            }
+        } catch (Exception ioe) {
+            ioe.printStackTrace();
+        }
+
+        //Checks size, if 0 uses backup
+        if (words.size() == 0) {
+            this.getWordsBackUp();
+        }
     }
 
+    /**
+     * Creates a backup word, hint list if the file doesn't load
+     */
+    private void getWordsBackUp() {
+        //Create ArrayList to load
+
+        //Load ArrayList with words [5 each of 5 or 6 letters)
+        words.add("apple");
+        hints.add("fruit");
+        words.add("banana");
+        hints.add("fruit");
+        words.add("carrot");
+        hints.add("fruit");
+        words.add("grape");
+        hints.add("fruit");
+        words.add("lemon");
+        hints.add("fruit");
+        words.add("mango");
+        hints.add("fruit");
+        words.add("orange");
+        hints.add("fruit");
+        words.add("peach");
+        hints.add("fruit");
+        words.add("raisin");
+        hints.add("fruit");
+        words.add("tomato");
+        hints.add("fruit");
+    }
     /**
      * Gets a random word from the array list that is the correct length,
      * sets as the original word to scramble

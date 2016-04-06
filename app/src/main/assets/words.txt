@@ -5,7 +5,7 @@ bakery, sweets
 cactus, a plant
 chest, a body part
 dancer, an physical action
-deputy, a law inforcer
+deputy, a law enforcer
 diaper, a item for babies
 faucet, a water outlet
 gallop, an animals action
