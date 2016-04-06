@@ -39,6 +39,7 @@ public class WordJumbleGameActivityTests extends ActivityInstrumentationTestCase
 
     }
 
+
     public void testUserInputMissing() {
         WordJumbleGameActivity activity = getActivity();
         final EditText guess = (EditText) activity.findViewById(R.id.etGuess);
@@ -83,7 +84,44 @@ public class WordJumbleGameActivityTests extends ActivityInstrumentationTestCase
         this.buttonTapSubmit();
 
     }
+    public void testIfPlayButtonPopulates5LetterText() {
+        WordJumbleGameActivity activity = getActivity();
+        final EditText size = (EditText) activity.findViewById(R.id.etSize);
+        final TextView jumble = (TextView) activity.findViewById(R.id.tvJumbled);
+        getInstrumentation().runOnMainSync(new Runnable() {
+            @Override
+            public void run() {
+                size.requestFocus();
+            }
+        });
 
+        getInstrumentation().waitForIdleSync();
+        getInstrumentation().sendStringSync("5");
+        this.buttonTapPlay();
+        int jumbled = jumble.length();
+        assertEquals(5, jumbled) ;
+
+    }
+    public void testIfPlayButtonPopulates6LetterText() {
+        WordJumbleGameActivity activity = getActivity();
+        final EditText size = (EditText) activity.findViewById(R.id.etSize);
+        final TextView jumble = (TextView) activity.findViewById(R.id.tvJumbled);
+        getInstrumentation().runOnMainSync(new Runnable() {
+            @Override
+            public void run() {
+                size.requestFocus();
+            }
+        });
+
+        getInstrumentation().waitForIdleSync();
+        getInstrumentation().sendStringSync("6");
+
+        this.buttonTapChangeLetterCount();
+        this.buttonTapPlay();
+        int jumbled = jumble.length();
+        assertEquals(6, jumbled) ;
+
+    }
     public void testSubmitIfWordJumbleEmpty() {
         WordJumbleGameActivity activity = getActivity();
         final EditText guess = (EditText) activity.findViewById(R.id.etGuess);
@@ -170,7 +208,7 @@ public class WordJumbleGameActivityTests extends ActivityInstrumentationTestCase
 
         String letters = sizeWord.getText().toString();
         assertEquals("5", letters);
-        //assertEquals("5", letters);
+
 
     }
     public void testPlayButtonIfWordSizeIsEmptyDefaultTo5() {
