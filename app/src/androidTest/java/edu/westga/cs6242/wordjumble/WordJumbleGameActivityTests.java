@@ -11,6 +11,7 @@ import android.widget.TextView;
  * Updated by Miko on 4/1/2016. Added testing.
  * Updated by Miko on 4/6/2016. Added testing.
  * Updated by Robert on 4/6/2016. Changed to match correcting in Model.
+ *
  */
 public class WordJumbleGameActivityTests extends ActivityInstrumentationTestCase2<WordJumbleGameActivity> {
     public WordJumbleGameActivityTests() {
@@ -24,7 +25,6 @@ public class WordJumbleGameActivityTests extends ActivityInstrumentationTestCase
 
     public void testInitialState() {
         WordJumbleGameActivity activity = getActivity();
-        final EditText guess = (EditText) activity.findViewById(R.id.etGuess);
         final EditText size = (EditText) activity.findViewById(R.id.etSize);
         final TextView jumble = (TextView) activity.findViewById(R.id.tvJumbled);
 
@@ -121,11 +121,12 @@ public class WordJumbleGameActivityTests extends ActivityInstrumentationTestCase
                 size.requestFocus();
                 //To increase reliability due to ide delay
                 size.setText("6");
+
             }
         });
 
         getInstrumentation().waitForIdleSync();
-        getInstrumentation().sendStringSync("6");
+        getInstrumentation().sendStringSync("0");
 
         this.buttonTapChangeLetterCount();
         this.buttonTapPlay();
@@ -148,7 +149,7 @@ public class WordJumbleGameActivityTests extends ActivityInstrumentationTestCase
         });
 
         getInstrumentation().waitForIdleSync();
-        getInstrumentation().sendStringSync("5");
+        getInstrumentation().sendStringSync("");
 
         getInstrumentation().runOnMainSync(new Runnable() {
             @Override
@@ -164,6 +165,7 @@ public class WordJumbleGameActivityTests extends ActivityInstrumentationTestCase
             @Override
             public void run() {
                 jumble.requestFocus();
+                jumble.setText("");
             }
         });
 
@@ -174,7 +176,7 @@ public class WordJumbleGameActivityTests extends ActivityInstrumentationTestCase
                 (TextView) activity.findViewById(R.id.tvJumbled);
 
         String jumbleText = jWord.getText().toString();
-        assertEquals(5, jumbleText.length());
+        assertEquals(0, jumbleText.length());
 
     }
 
@@ -186,6 +188,7 @@ public class WordJumbleGameActivityTests extends ActivityInstrumentationTestCase
             @Override
             public void run() {
                 size.requestFocus();
+                size.setText("0");
             }
         });
 
@@ -210,6 +213,7 @@ public class WordJumbleGameActivityTests extends ActivityInstrumentationTestCase
             @Override
             public void run() {
                 size.requestFocus();
+                size.setText("");
             }
         });
 
@@ -226,7 +230,7 @@ public class WordJumbleGameActivityTests extends ActivityInstrumentationTestCase
 
     }
 
-    public void testPlayButtonIfWordSizeIsEmptyDefaultTo5() {
+    public void testPlayButtonIfLetterSizeIs0DefaultTo5() {
         WordJumbleGameActivity activity = getActivity();
         final EditText size = (EditText) activity.findViewById(R.id.etSize);
 
@@ -234,6 +238,7 @@ public class WordJumbleGameActivityTests extends ActivityInstrumentationTestCase
             @Override
             public void run() {
                 size.requestFocus();
+                size.setText("0");
             }
         });
 
@@ -253,18 +258,8 @@ public class WordJumbleGameActivityTests extends ActivityInstrumentationTestCase
     public void testSubmitButtonIfGuessIsEmpty() {
         WordJumbleGameActivity activity = getActivity();
         final EditText guess = (EditText) activity.findViewById(R.id.etGuess);
-        final EditText size = (EditText) activity.findViewById(R.id.etSize);
+
         this.buttonTapPlay();
-
-        getInstrumentation().runOnMainSync(new Runnable() {
-            @Override
-            public void run() {
-                size.requestFocus();
-            }
-        });
-
-        getInstrumentation().waitForIdleSync();
-        getInstrumentation().sendStringSync("5");
 
         getInstrumentation().runOnMainSync(new Runnable() {
             @Override
@@ -281,7 +276,6 @@ public class WordJumbleGameActivityTests extends ActivityInstrumentationTestCase
                 (EditText) activity.findViewById(R.id.etGuess);
 
         String guessWord = guessW.getText().toString();
-
         assertEquals("", guessWord);
 
     }
